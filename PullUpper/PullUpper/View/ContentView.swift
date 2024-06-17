@@ -2,20 +2,28 @@
 //  ContentView.swift
 //  PullUpper
 //
-//  Created by hanseoyoung on 6/16/24.
+//  Created by hanseoyoung on 6/17/24.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            MainView()
+                .tabItem {
+                    Image(systemName: "circle.fill")
+                    Text("Main")
+                }
+
+            ActivityView()
+                .tabItem { 
+                    Image(systemName: "circle.fill")
+                    Text("Activity")
+                }
         }
-        .padding()
+        .tabViewStyle(.page)
+        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
 }
 
