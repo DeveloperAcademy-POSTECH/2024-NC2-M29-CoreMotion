@@ -11,27 +11,31 @@ import SwiftUI
 struct PullUpCountView: View {
     var body: some View {
         VStack{
-            Text("COUNT")
-            //숫자는 pullUpCount
-//            Text("\(pullUpCount)")
-        }
-        HStack{
+            Spacer()
             VStack{
-                Text("GOAL")
-                Divider()
-                HStack{
-                    Text("20")
-                    Text("PULL UPs")
+                Text("COUNT")
+                //숫자는 pullUpCount
+                //            Text("\(pullUpCount)")
+                Text("11")
+            }
+            Spacer()
+            HStack{
+                VStack{
+                    Text("GOAL")
+                    Divider()
+                    HStack{
+                        Text("20")
+                        Text("PULL UPs")
+                    }
+                    
                 }
                 VStack{
                     Text("GOAL")
                     Divider()
-//                    Text("\(pullUpMinute):\(pullUpSecond)")
+                    Text("00:00")
                 }
             }
         }
-        
-        
     }
 }
 
