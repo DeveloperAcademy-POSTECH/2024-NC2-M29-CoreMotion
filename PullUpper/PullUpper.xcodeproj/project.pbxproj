@@ -14,6 +14,7 @@
 		BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */; };
 		BDEC97E52C1ECACC00D37F28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */; };
 		BDEC97E82C1ECACC00D37F28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E72C1ECACC00D37F28 /* Preview Assets.xcassets */; };
+		E3021F852C2067EE00017D1C /* PullUpCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3021F842C2067EE00017D1C /* PullUpCountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpperApp.swift; sourceTree = "<group>"; };
 		BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDEC97E72C1ECACC00D37F28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E3021F842C2067EE00017D1C /* PullUpCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpCountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 		BD3D7E832C1FD6D1007D8BAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E3021F842C2067EE00017D1C /* PullUpCountView.swift */,
 				BD3D7E862C205295007D8BAA /* MainView.swift */,
 				BD3D7E882C2057A2007D8BAA /* ActivityView.swift */,
 				BD3D7E8A2C2057E2007D8BAA /* ContentView.swift */,
@@ -166,6 +169,7 @@
 				BD3D7E8B2C2057E2007D8BAA /* ContentView.swift in Sources */,
 				BD3D7E892C2057A2007D8BAA /* ActivityView.swift in Sources */,
 				BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */,
+				E3021F852C2067EE00017D1C /* PullUpCountView.swift in Sources */,
 				BD3D7E852C200C70007D8BAA /* PullUpRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +304,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PullUpper/Preview Content\"";
+				DEVELOPMENT_TEAM = 52YPZ97YVA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -330,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PullUpper/Preview Content\"";
+				DEVELOPMENT_TEAM = 52YPZ97YVA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
