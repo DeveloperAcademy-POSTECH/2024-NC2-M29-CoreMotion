@@ -21,7 +21,8 @@ struct MainView: View {
                 .padding(.top, 80)
 
             Text("GOAL")
-                .font(.system(size: 42))
+                .font(.system(size: 42, weight: .heavy))
+                .fontWidth(.expanded)
                 .foregroundColor(.subText)
                 .padding(.top, 81)
 
@@ -33,7 +34,8 @@ struct MainView: View {
                 } label: { }
             } label: {
                 Text("\(userGoal)")
-                    .font(.system(size: 96))
+                    .font(.system(size: 96, weight: .heavy))
+                    .fontWidth(.expanded)
                     .foregroundColor(.mainText)
                     .underline()
             }
@@ -47,7 +49,8 @@ struct MainView: View {
                         .aspectRatio(contentMode: .fit)
 
                     Text("START")
-                        .font(.system(size: 32))
+                        .font(.system(size: 32, weight: .heavy))
+                        .fontWidth(.expanded)
                         .foregroundColor(.mainText)
                 }
             })
