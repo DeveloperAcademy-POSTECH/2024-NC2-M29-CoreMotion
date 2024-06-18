@@ -37,10 +37,11 @@ struct PullUpCountView: View {
                         .font(.system(size: 128, weight: .heavy))
                         .fontWidth(.expanded)
                         .foregroundStyle(.white)
+                        .frame(height: 128)
                 }
                 Spacer()
                 HStack{
-                    VStack(alignment: .leading, spacing: 8){
+                    VStack(alignment: .leading, spacing: 4){
                         Text("GOAL")
                             .font(.system(size: 24, weight: .bold))
                             .foregroundStyle(.subText)
@@ -56,7 +57,7 @@ struct PullUpCountView: View {
                         }
                         
                     }
-                    VStack(alignment: .leading, spacing: 8){
+                    VStack(alignment: .leading, spacing: 4){
                         Text("TIME")
                             .font(.system(size: 24, weight: .bold))
                             .foregroundStyle(.subText)
@@ -65,6 +66,7 @@ struct PullUpCountView: View {
                             .font(.system(size: 48, weight: .black))
                     }
                 }
+                .padding()
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
