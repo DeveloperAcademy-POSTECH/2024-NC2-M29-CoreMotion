@@ -11,6 +11,7 @@
 		BD3D7E872C205295007D8BAA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D7E862C205295007D8BAA /* MainView.swift */; };
 		BD3D7E892C2057A2007D8BAA /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D7E882C2057A2007D8BAA /* ActivityView.swift */; };
 		BD3D7E942C208281007D8BAA /* StretchPro.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD3D7E932C208281007D8BAA /* StretchPro.otf */; };
+		BD9CD7262C21B58D00FEF72E /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9CD7252C21B58D00FEF72E /* MotionManager.swift */; };
 		BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */; };
 		BDEC97E52C1ECACC00D37F28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */; };
 		BDEC97E82C1ECACC00D37F28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E72C1ECACC00D37F28 /* Preview Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		BD3D7E882C2057A2007D8BAA /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		BD3D7E922C207C52007D8BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BD3D7E932C208281007D8BAA /* StretchPro.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = StretchPro.otf; sourceTree = "<group>"; };
+		BD9CD7252C21B58D00FEF72E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 		BDEC97DD2C1ECACC00D37F28 /* PullUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpperApp.swift; sourceTree = "<group>"; };
 		BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				BD3D7E842C200C70007D8BAA /* PullUpRecord.swift */,
+				BD9CD7252C21B58D00FEF72E /* MotionManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD3D7E872C205295007D8BAA /* MainView.swift in Sources */,
+				BD9CD7262C21B58D00FEF72E /* MotionManager.swift in Sources */,
 				BD3D7E892C2057A2007D8BAA /* ActivityView.swift in Sources */,
 				BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */,
 				E3021F852C2067EE00017D1C /* PullUpCountView.swift in Sources */,
