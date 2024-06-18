@@ -25,3 +25,17 @@ class PullUpRecord {
         self.pullUpSecond = pullUpSecond
     }
 }
+
+func generateMockPullUpRecords(count: Int) -> [PullUpRecord] {
+    var records: [PullUpRecord] = []
+    for _ in 0..<count {
+        let pullUpCount = Int.random(in: 1...20)
+        let pullUpGoalCount = Int.random(in: 1...20)
+        let pullUpMinute = Int.random(in: 0...5)
+        let pullUpSecond = Int.random(in: 0...59)
+
+        let record = PullUpRecord(pullUpCount: pullUpCount, pullUpGoalCount: pullUpGoalCount, pullUpMinute: pullUpMinute, pullUpSecond: pullUpSecond)
+        records.append(record)
+    }
+    return records
+}
