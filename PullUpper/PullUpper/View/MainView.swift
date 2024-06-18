@@ -30,6 +30,7 @@ struct MainView: View {
                 .padding(.top, 81)
 
             Button(action: {
+                // TODO: 헤드폰 연결 탐지, PullUpCountView로 넘어가기
                 isPickerPresented = true
             }) {
                 Text("\(userGoal)")
@@ -39,22 +40,30 @@ struct MainView: View {
                     .underline()
             }
 
-            Button(action: {
-                UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
-            }, label: {
-                ZStack {
-                    Image("Start_Button")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+            ZStack {
 
-                    Text("START")
-                        .font(.system(size: 32, weight: .heavy))
-                        .fontWidth(.expanded)
-                        .foregroundColor(.mainText)
-                }
-            })
+                Image("Start_Button")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.horizontal, 77)
+
+                Button(action: {
+                    UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
+                }, label: {
+                    ZStack {
+                        Text("START")
+                            .font(.system(size: 32, weight: .heavy))
+                            .fontWidth(.expanded)
+                            .foregroundColor(.mainText)
+
+                        Circle()
+                            .frame(width: 200, height: 200)
+                            .foregroundColor(.clear)
+                    }
+                })
+                .padding(.horizontal, 77)
+            }
             .padding(.top, 89)
-            .padding(.horizontal, 77)
 
             Spacer()
         }
@@ -64,33 +73,34 @@ struct MainView: View {
     }
 
     private func goalPickerPopup() -> some View {
-            VStack {
-                Picker("Choose a goal count", selection: $userGoal) {
-                    ForEach(goalNumbers, id: \.self) { goalNumber in
-                        Text("\(goalNumber)")
-                    }
+        VStack {
+            Picker("Choose a goal count", selection: $userGoal) {
+                ForEach(goalNumbers, id: \.self) { goalNumber in
+                    Text("\(goalNumber)")
                 }
-                .pickerStyle(.wheel)
-                .labelsHidden()
-
-                Button(action: {
-                    UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
-                    isPickerPresented = false
-                }) {
-                    Text("Set Goal")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
             }
-            .frame(width: 300, height: 300)
-            .background(Color.white)
-            .cornerRadius(20)
-            .shadow(radius: 20)
+            .pickerStyle(.wheel)
+            .labelsHidden()
+
+            Button(action: {
+                UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
+                isPickerPresented = false
+            }) {
+                // TODO: 버튼 스타일 수정 필요
+                Text("Set Goal")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
         }
+        .frame(width: 300, height: 300)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(radius: 20)
+    }
 }
 
 struct Popup<PopupContent: View>: ViewModifier {
