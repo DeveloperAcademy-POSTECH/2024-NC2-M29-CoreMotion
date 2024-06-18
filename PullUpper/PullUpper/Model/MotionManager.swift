@@ -15,6 +15,10 @@ class PullUpCounter: ObservableObject {
     @Published var accelData = CMAcceleration()
     @Published var pullUpCount = 0.5
 
+    var pullUpCountInt: Int {
+        return Int(pullUpCount)
+    }
+
     private var integralZ: Double = 0.0
     private var lastAccelZ: Double = 0.0
     private var lastIntegralZ: Double = 0.0
