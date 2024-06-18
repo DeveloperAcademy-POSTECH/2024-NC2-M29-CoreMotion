@@ -8,6 +8,18 @@
 import SwiftUI
 
 struct PullUpCountView: View {
+    @State private var progressTime = 0
+    @State private var timer: Timer?
+    @State private var hasAppeared = false
+
+    var minutes: Int {
+        (progressTime % 3600) / 60
+    }
+
+    var seconds: Int {
+        progressTime % 60
+    }
+
     var body: some View {
         ZStack {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
@@ -28,8 +40,8 @@ struct PullUpCountView: View {
                         .fontWidth(.expanded)
                         .foregroundStyle(.white)
                         .opacity(0.5)
-                    
-                    //숫자는 pullUpCount
+
+                    // TODO: 풀업 갯수로 변경
                     Text("11")
                         .font(.system(size: 128, weight: .heavy))
                         .fontWidth(.expanded)
@@ -57,20 +69,24 @@ struct PullUpCountView: View {
                                 .fontWidth(.expanded)
                         }
                     }
-                    VStack(alignment: .leading, spacing: 4){
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("TIME")
                             .font(.system(size: 24, weight: .bold))
                             .foregroundStyle(.subText)
 
                         Divider()
-
-                        Text("00:00")
-                            .font(.system(size: 48, weight: .black))
+                        // TODO: 스탑워치
+                        Text(String(format: "%02d", minutes)
+                             + ":"
+                             + String(format: "%02d", seconds))
+                        .font(.system(size: 48, weight: .black))
                     }
                 }
                 .padding()
 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    timer?.invalidate()
+                }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundColor(.black)
@@ -84,6 +100,21 @@ struct PullUpCountView: View {
             }
             .padding()
         }
+        .onChange(of: hasAppeared) { _, appeared in
+            if appeared {
+                timerStart()
+            }
+        }
+        .onAppear {
+            hasAppeared = true
+        }
+    }
+
+    func timerStart() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            progressTime += 1
+        })
     }
 }
 
