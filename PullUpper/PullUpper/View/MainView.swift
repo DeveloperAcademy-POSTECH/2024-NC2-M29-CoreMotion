@@ -7,14 +7,129 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct MainView: View {
+    @State private var userGoal: Int = UserDefaults.standard.integer(forKey: "userGoal")
+    @State private var isPickerPresented: Bool = false
+
+    let goalNumbers: [Int] = Array(1...20)
+
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("PullUpper")
-                .font(Font.custom("Stretch Pro", size: 36))
+                .font(Font.custom("StretchProRegular", size: 36))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)
+                .padding(.top, 80)
+
+            Text("GOAL")
+                .font(.system(size: 42, weight: .heavy))
+                .fontWidth(.expanded)
+                .foregroundColor(.subText)
+                .padding(.top, 81)
+
+            Button(action: {
+                // TODO: 헤드폰 연결 탐지, PullUpCountView로 넘어가기
+                isPickerPresented = true
+            }) {
+                Text("\(userGoal)")
+                    .font(.system(size: 96, weight: .heavy))
+                    .fontWidth(.expanded)
+                    .foregroundColor(.mainText)
+                    .underline()
+            }
+
+            ZStack {
+
+                Image("Start_Button")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.horizontal, 77)
+
+                Button(action: {
+                    UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
+                }, label: {
+                    ZStack {
+                        Text("START")
+                            .font(.system(size: 32, weight: .heavy))
+                            .fontWidth(.expanded)
+                            .foregroundColor(.mainText)
+
+                        Circle()
+                            .frame(width: 200, height: 200)
+                            .foregroundColor(.clear)
+                    }
+                })
+                .padding(.horizontal, 77)
+            }
+            .padding(.top, 89)
+
+            Spacer()
         }
+        .popup(isPresented: $isPickerPresented) {
+            goalPickerPopup()
+        }
+    }
+
+    private func goalPickerPopup() -> some View {
+        VStack {
+            Picker("Choose a goal count", selection: $userGoal) {
+                ForEach(goalNumbers, id: \.self) { goalNumber in
+                    Text("\(goalNumber)")
+                }
+            }
+            .pickerStyle(.wheel)
+            .labelsHidden()
+
+            Button(action: {
+                UserDefaults.standard.set(self.userGoal, forKey: "userGoal")
+                isPickerPresented = false
+            }) {
+                // TODO: 버튼 스타일 수정 필요
+                Text("Set Goal")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+        }
+        .frame(width: 300, height: 300)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(radius: 20)
+    }
+}
+
+struct Popup<PopupContent: View>: ViewModifier {
+    let popupContent: PopupContent
+    @Binding var isPresented: Bool
+
+    init(isPresented: Binding<Bool>, @ViewBuilder popupContent: () -> PopupContent) {
+        self._isPresented = isPresented
+        self.popupContent = popupContent()
+    }
+
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+                .blur(radius: isPresented ? 3 : 0)
+
+            if isPresented {
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+
+                popupContent
+            }
+        }
+    }
+}
+
+extension View {
+    func popup<PopupContent: View>(isPresented: Binding<Bool>, @ViewBuilder popupContent: @escaping () -> PopupContent) -> some View {
+        self.modifier(Popup(isPresented: isPresented, popupContent: popupContent))
     }
 }
 
