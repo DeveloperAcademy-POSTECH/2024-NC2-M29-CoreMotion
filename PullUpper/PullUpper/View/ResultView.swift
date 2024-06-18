@@ -29,11 +29,9 @@ struct ResultView: View {
                         .font(.system(size: 48, weight: .heavy))
                         .fontWidth(.expanded)
                         
-                
+                // 결과들을 모아서 스택을 하나 묶어줬습니다.
                 VStack(alignment: .leading, spacing: 12) {
                     
-                    VStack(alignment: .leading, spacing: 0) {
-                        
                         //Count 스택입니다.
                         VStack(alignment: .leading, spacing: 0) {
                             Text("COUNT")
@@ -51,7 +49,6 @@ struct ResultView: View {
                                 .frame(height: 2)
                                 .background(.black)
                         }
-                    }
                     
                     HStack (spacing: 20){
                         //GOAL 스택입니다.
