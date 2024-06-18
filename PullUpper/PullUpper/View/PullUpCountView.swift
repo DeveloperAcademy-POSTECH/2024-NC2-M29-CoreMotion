@@ -13,12 +13,16 @@ struct PullUpCountView: View {
     
     var body: some View {
         ZStack{
-            ZStack{
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)){
                 Color.accentColor
                     .ignoresSafeArea()
-                Image("white half 1")
+                
+                Image("whiteHalfTone")
                     .resizable()
-                    .opacity(0.5)
+                    .opacity(0.2)
+                    .scaledToFit()
+                    .ignoresSafeArea()
+    
             }
             VStack{
                 Spacer()

@@ -15,6 +15,7 @@
 		BDEC97E52C1ECACC00D37F28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */; };
 		BDEC97E82C1ECACC00D37F28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E72C1ECACC00D37F28 /* Preview Assets.xcassets */; };
 		E3021F852C2067EE00017D1C /* PullUpCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3021F842C2067EE00017D1C /* PullUpCountView.swift */; };
+		E31150382C210FCD00191A11 /* whiteHalfTone.png in Resources */ = {isa = PBXBuildFile; fileRef = E31150372C210FCD00191A11 /* whiteHalfTone.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDEC97E72C1ECACC00D37F28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E3021F842C2067EE00017D1C /* PullUpCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpCountView.swift; sourceTree = "<group>"; };
+		E31150372C210FCD00191A11 /* whiteHalfTone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteHalfTone.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				BD3D7E832C1FD6D1007D8BAA /* View */,
 				BD3D7E822C1FD6CA007D8BAA /* Model */,
 				BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */,
+				E31150372C210FCD00191A11 /* whiteHalfTone.png */,
 				BDEC97E62C1ECACC00D37F28 /* Preview Content */,
 			);
 			path = PullUpper;
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31150382C210FCD00191A11 /* whiteHalfTone.png in Resources */,
 				BDEC97E82C1ECACC00D37F28 /* Preview Assets.xcassets in Resources */,
 				BDEC97E52C1ECACC00D37F28 /* Assets.xcassets in Resources */,
 			);

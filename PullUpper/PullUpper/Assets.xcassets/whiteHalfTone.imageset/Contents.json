@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "whiteHalfTone.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
