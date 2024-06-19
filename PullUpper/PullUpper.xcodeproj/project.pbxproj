@@ -10,6 +10,7 @@
 		BD3D7E852C200C70007D8BAA /* PullUpRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D7E842C200C70007D8BAA /* PullUpRecord.swift */; };
 		BD3D7E872C205295007D8BAA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D7E862C205295007D8BAA /* MainView.swift */; };
 		BD3D7E892C2057A2007D8BAA /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3D7E882C2057A2007D8BAA /* ActivityView.swift */; };
+		BD4A0E222C22633000F7B059 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A0E212C22633000F7B059 /* ContentView.swift */; };
 		BD9CD7262C21B58D00FEF72E /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9CD7252C21B58D00FEF72E /* MotionManager.swift */; };
 		BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */; };
 		BDEC97E52C1ECACC00D37F28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 		BD3D7E862C205295007D8BAA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		BD3D7E882C2057A2007D8BAA /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		BD3D7E922C207C52007D8BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BD4A0E212C22633000F7B059 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD9CD7252C21B58D00FEF72E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 		BDEC97DD2C1ECACC00D37F28 /* PullUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDEC97E02C1ECACC00D37F28 /* PullUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpperApp.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				E3021F842C2067EE00017D1C /* PullUpCountView.swift */,
 				BD3D7E862C205295007D8BAA /* MainView.swift */,
 				BD3D7E882C2057A2007D8BAA /* ActivityView.swift */,
+				BD4A0E212C22633000F7B059 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			files = (
 				BD3D7E872C205295007D8BAA /* MainView.swift in Sources */,
 				BD9CD7262C21B58D00FEF72E /* MotionManager.swift in Sources */,
+				BD4A0E222C22633000F7B059 /* ContentView.swift in Sources */,
 				BD3D7E892C2057A2007D8BAA /* ActivityView.swift in Sources */,
 				BDEC97E12C1ECACC00D37F28 /* PullUpperApp.swift in Sources */,
 				E3021F852C2067EE00017D1C /* PullUpCountView.swift in Sources */,

@@ -9,125 +9,134 @@ import SwiftUI
 
 struct PullUpCountView: View {
     @StateObject private var pullUpCounter = PullUpCounter()
-    
+
     @State private var progressTime = 0
     @State private var timer: Timer?
     @State private var hasAppeared = false
-    
+
+    @Binding var path: [String]
+
+    @Environment(\.modelContext) private var modelContext
+
     let userGoal = UserDefaults.standard.integer(forKey: "userGoal")
-    
+
     var minutes: Int {
         (progressTime % 3600) / 60
     }
-    
+
     var seconds: Int {
         progressTime % 60
     }
-    
+
     var body: some View {
-        NavigationStack {
-            ZStack {
-                ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                    Color.accentColor
-                    
-                    Image("whiteHalfTone")
-                        .resizable()
-                        .opacity(0.2)
-                        .scaledToFit()
+        ZStack {
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                Color.accentColor
+
+                Image("whiteHalfTone")
+                    .resizable()
+                    .opacity(0.2)
+                    .scaledToFit()
+            }
+            .ignoresSafeArea()
+
+            VStack {
+                Spacer()
+                VStack(spacing: 0) {
+                    Text("COUNT")
+                        .font(.system(size: 40, weight: .heavy))
+                        .fontWidth(.expanded)
+                        .foregroundStyle(.white)
+                        .opacity(0.5)
+
+                    Text("\(pullUpCounter.pullUpCountInt)")
+                        .font(.system(size: 128, weight: .heavy))
+                        .fontWidth(.expanded)
+                        .foregroundStyle(.white)
+                        .frame(height: 128)
                 }
-                .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    VStack(spacing: 0) {
-                        Text("COUNT")
-                            .font(.system(size: 40, weight: .heavy))
-                            .fontWidth(.expanded)
-                            .foregroundStyle(.white)
-                            .opacity(0.5)
-                        
-                        Text("\(pullUpCounter.pullUpCountInt)")
-                            .font(.system(size: 128, weight: .heavy))
-                            .fontWidth(.expanded)
-                            .foregroundStyle(.white)
-                            .frame(height: 128)
-                    }
-                    
-                    goalCircles()
-                    
-                    Spacer()
-                    
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("GOAL")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundStyle(.subText)
-                            
-                            Divider()
-                            
-                            HStack {
-                                Text("\(userGoal)")
-                                    .font(.system(size: 48, weight: .black))
-                                    .fontWidth(.expanded)
-                                
-                                Text("PULL\nUPs")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .fontWidth(.expanded)
-                            }
-                        }
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("TIME")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundStyle(.subText)
-                            
-                            Divider()
-                            
-                            Text(String(format: "%02d", minutes)
-                                 + ":"
-                                 + String(format: "%02d", seconds))
-                            .font(.system(size: 48, weight: .black))
-                        }
-                    }
-                    .padding()
-                    
-                    // TODO: ResultView 연결
-                    Button(action: {
-                        timer?.invalidate()
-                        pullUpCounter.stopUpdates()
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.black)
-                                .frame(height: 66)
-                            
-                            Text("STOP")
-                                .font(.system(size: 36, weight: .black))
+
+                goalCircles()
+
+                Spacer()
+
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("GOAL")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(.subText)
+
+                        Divider()
+
+                        HStack {
+                            Text("\(userGoal)")
+                                .font(.system(size: 48, weight: .black))
+                                .fontWidth(.expanded)
+
+                            Text("PULL\nUPs")
+                                .font(.system(size: 16, weight: .bold))
                                 .fontWidth(.expanded)
                         }
-                    })
+                    }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("TIME")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(.subText)
+
+                        Divider()
+
+                        Text(String(format: "%02d", minutes)
+                             + ":"
+                             + String(format: "%02d", seconds))
+                        .font(.system(size: 48, weight: .black))
+                    }
                 }
                 .padding()
-            }
-            .onChange(of: hasAppeared) { _, appeared in
-                if appeared {
-                    timerStart()
-                    pullUpCounter.startUpdates()
+
+                NavigationLink(value: "ResultView") {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.black)
+                            .frame(height: 66)
+
+                        Text("STOP")
+                            .font(.system(size: 36, weight: .black))
+                            .fontWidth(.expanded)
+                    }
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    do {
+                        modelContext.insert(PullUpRecord(pullUpCount: pullUpCounter.pullUpCountInt, pullUpGoalCount: userGoal, pullUpMinute: minutes, pullUpSecond: seconds))
+                        try modelContext.save()
+                    } catch {
+                        print("save error")
+                    }
+
+                    timer?.invalidate()
+                    pullUpCounter.stopUpdates()
+                })
             }
-            .onAppear {
-                hasAppeared = true
+            .padding()
+        }
+        .onChange(of: hasAppeared) { _, appeared in
+            if appeared {
+                timerStart()
+                pullUpCounter.startUpdates()
             }
         }
-        .navigationBarHidden(true)
+        .onAppear {
+            hasAppeared = true
+        }
+        .navigationBarBackButtonHidden(true)
     }
-    
+
     func timerStart() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             progressTime += 1
         })
     }
-    
+
     func goalCircles() -> some View {
         VStack {
             HStack {
@@ -147,7 +156,7 @@ struct PullUpCountView: View {
                 }
             }
             .padding(.vertical, 20)
-            
+
             HStack {
                 ForEach(11...20, id: \.self) { num in
                     if num <= userGoal {
@@ -166,8 +175,4 @@ struct PullUpCountView: View {
             }
         }
     }
-}
-
-#Preview {
-    PullUpCountView()
 }

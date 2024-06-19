@@ -11,79 +11,87 @@ struct MainView: View {
     @State private var userGoal: Int = UserDefaults.standard.integer(forKey: "userGoal")
     @State private var isPickerPresented: Bool = false
     
+    @Binding var path: [String]
+    
     let goalNumbers: [Int] = Array(1...20)
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                HStack(alignment: .center){
-                    Text("PullUpper")
-                        .font(.system(size: 36, weight: .heavy))
-                        .fontWidth(.expanded)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.black)
-
-                    Spacer()
-
-                    NavigationLink(destination: ActivityView()) {
-                        Image(systemName: "line.3.horizontal.circle.fill")
-                            .font(.system(size: 32))
-                    }
-                }
-                .padding()
-
-                Spacer()
-
-                Text("GOAL")
-                    .font(.system(size: 42, weight: .heavy))
+        VStack(spacing: 0) {
+            HStack(alignment: .center){
+                Text("PullUpper")
+                    .font(.system(size: 36, weight: .heavy))
                     .fontWidth(.expanded)
-                    .foregroundColor(.subText)
-
-                Button(action: {
-                    // TODO: 헤드폰 연결 탐지, PullUpCountView로 넘어가기
-                    isPickerPresented = true
-                }) {
-                    Text("\(userGoal)")
-                        .font(.system(size: 96, weight: .heavy))
-                        .fontWidth(.expanded)
-                        .foregroundColor(.mainText)
-                        .underline()
-                }
-
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                
                 Spacer()
-
-                ZStack {
-                    Image("Start_Button")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.horizontal, 77)
-                    
-
-                    NavigationLink(destination: PullUpCountView()){
-                        ZStack {
-                            Text("START")
-                                .font(.system(size: 32, weight: .heavy))
-                                .fontWidth(.expanded)
-                                .foregroundColor(.mainText)
-
-                            Circle()
-                                .frame(width: 200, height: 200)
-                                .foregroundColor(.clear)
-                        }
+                
+                NavigationLink(value: "ActivityView") {
+                    Image(systemName: "line.3.horizontal.circle.fill")
+                        .font(.system(size: 32))
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            Text("GOAL")
+                .font(.system(size: 42, weight: .heavy))
+                .fontWidth(.expanded)
+                .foregroundColor(.subText)
+            
+            Button(action: {
+                // TODO: 헤드폰 연결 탐지, PullUpCountView로 넘어가기
+                isPickerPresented = true
+            }) {
+                Text("\(userGoal)")
+                    .font(.system(size: 96, weight: .heavy))
+                    .fontWidth(.expanded)
+                    .foregroundColor(.mainText)
+                    .underline()
+            }
+            
+            Spacer()
+            
+            ZStack {
+                Image("Start_Button")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.horizontal, 77)
+                
+                
+                NavigationLink(value: "PullUpCountView"){
+                    ZStack {
+                        Text("START")
+                            .font(.system(size: 32, weight: .heavy))
+                            .fontWidth(.expanded)
+                            .foregroundColor(.mainText)
+                        
+                        Circle()
+                            .frame(width: 200, height: 200)
+                            .foregroundColor(.clear)
                     }
                 }
-
-                Spacer()
+                .navigationDestination(for: String.self) { pathValue in
+                    if pathValue == "PullUpCountView" {
+                        PullUpCountView(path: $path)
+                    } else if pathValue == "ResultView" {
+                        ResultView(path: $path)
+                    } else if pathValue == "ActivityView" {
+                        ActivityView(path: $path)
+                    }
+                }
             }
-            .popup(isPresented: $isPickerPresented) {
-                goalPickerPopup()
-            }
+            
+            Spacer()
+        }
+        .popup(isPresented: $isPickerPresented) {
+            goalPickerPopup()
         }
     }
     
     // MARK: 목표 수정 피커
     private func goalPickerPopup() -> some View {
-
         VStack {
             Picker("Choose a goal count", selection: $userGoal) {
                 ForEach(goalNumbers, id: \.self) { goalNumber in
@@ -148,6 +156,3 @@ extension View {
     }
 }
 
-#Preview {
-    MainView()
-}
