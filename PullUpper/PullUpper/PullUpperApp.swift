@@ -12,7 +12,7 @@ import SwiftData
 struct PullUpperApp: App {
     var pullUpModelContainer: ModelContainer = {
         let schema = Schema([PullUpRecord.self])
-            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
             do {
                 return try ModelContainer(for: schema, configurations: [modelConfiguration])
             } catch {
