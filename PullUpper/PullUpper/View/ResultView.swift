@@ -10,8 +10,6 @@ import SwiftUI
 struct ResultView: View {
     var body: some View {
         ZStack {
-            
-            //배경용 스택입니다.
             VStack {
                 Spacer()
                 
@@ -19,20 +17,14 @@ struct ResultView: View {
                     .resizable()
                     .scaledToFit()
             }
-            //타냐가 오늘 알려준 내용을 적용해보았습니다...후후
             .ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 40){
-                
-                    // 제목 Result입니다.
+            VStack(alignment: .leading, spacing: 40) {
                     Text("Result")
                         .font(.system(size: 48, weight: .heavy))
                         .fontWidth(.expanded)
-                        
-                // 결과들을 모아서 스택을 하나 묶어줬습니다.
+
                 VStack(alignment: .leading, spacing: 12) {
-                    
-                        //Count 스택입니다.
                         VStack(alignment: .leading, spacing: 0) {
                             Text("COUNT")
                                 .font(.system(size: 24, weight: .bold))
@@ -42,7 +34,6 @@ struct ResultView: View {
                             Text("10")
                                 .font(.system(size: 96, weight: .bold))
                                 .fontWidth(.expanded)
-                            // 행간이 피그마와 달라서 높이를 지정해주었습니다
                                 .frame(height: 96)
                             
                             Divider()
@@ -50,13 +41,11 @@ struct ResultView: View {
                                 .background(.black)
                         }
                     
-                    HStack (spacing: 20){
-                        //GOAL 스택입니다.
+                    HStack(spacing: 20) {
                         VStack (alignment: .leading, spacing: 8) {
                             Text("GOAL")
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundStyle(.subText)
-                            // 행간이 피그마와 달라서 높이를 지정해주었습니다
                                 .frame(height: 24)
                             
                             HStack {
@@ -68,35 +57,28 @@ struct ResultView: View {
                                 Text("PULL\nUPs")
                                     .font(.system(size: 16, weight: .bold))
                                     .fontWidth(.expanded)
-                                
                             }
-                            // 행간이 피그마와 달라서 높이를 지정해주었습니다.
                                 .frame(height: 48)
-                            
-                            
+
                             Divider()
                                 .frame(height: 2)
                                 .background(.black)
                             
                         }
-                        // Time스택입니다.
                         VStack (alignment: .leading, spacing: 8) {
                             Text("TIME")
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundStyle(.subText)
-                            // 행간이 피그마와 달라서 높이를 지정해주었습니다
                                 .frame(height: 24)
                             
                             // TODO: pullUpMinute과 pullUpSecond가 들어갈 자리입니다.
                             Text("00:00")
                                 .font(.system(size: 48, weight: .bold))
-                            // 행간이 피그마와 달라서 높이를 지정해주었습니다.
                                 .frame(height: 48)
                             
                             Divider()
                                 .frame(height: 2)
                                 .background(.black)
-                            
                         }
                     }
                 }
@@ -104,7 +86,6 @@ struct ResultView: View {
                 
                 Spacer()
                 
-                //MainView로 돌아가는 버튼입니다.
                 Button(action: {
                     print("MainView로 돌아감")
                 }, label: {

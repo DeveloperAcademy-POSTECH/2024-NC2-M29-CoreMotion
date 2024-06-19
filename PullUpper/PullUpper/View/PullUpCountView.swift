@@ -8,81 +8,162 @@
 import SwiftUI
 
 struct PullUpCountView: View {
+    @StateObject private var pullUpCounter = PullUpCounter()
+    
+    @State private var progressTime = 0
+    @State private var timer: Timer?
+    @State private var hasAppeared = false
+    
+    let userGoal = UserDefaults.standard.integer(forKey: "userGoal")
+    
+    var minutes: Int {
+        (progressTime % 3600) / 60
+    }
+    
+    var seconds: Int {
+        progressTime % 60
+    }
+    
     var body: some View {
-        ZStack {
-            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
-                Color.accentColor
-
-                Image("whiteHalfTone")
-                    .resizable()
-                    .opacity(0.2)
-                    .scaledToFit()
-            }
-            .ignoresSafeArea()
-
-            VStack {
-                Spacer()
-                VStack(spacing: 0) {
-                    Text("COUNT")
-                        .font(.system(size: 40, weight: .heavy))
-                        .fontWidth(.expanded)
-                        .foregroundStyle(.white)
-                        .opacity(0.5)
+        NavigationStack {
+            ZStack {
+                ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                    Color.accentColor
                     
-                    //숫자는 pullUpCount
-                    Text("11")
-                        .font(.system(size: 128, weight: .heavy))
-                        .fontWidth(.expanded)
-                        .foregroundStyle(.white)
-                        .frame(height: 128)
+                    Image("whiteHalfTone")
+                        .resizable()
+                        .opacity(0.2)
+                        .scaledToFit()
                 }
-
-                Spacer()
-
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("GOAL")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.subText)
-
-                        Divider()
-
-                        HStack {
-                            Text("20")
-                                .font(.system(size: 48, weight: .black))
-                                .fontWidth(.expanded)
-
-                            Text("PULL\nUPs")
-                                .font(.system(size: 16, weight: .bold))
-                                .fontWidth(.expanded)
+                .ignoresSafeArea()
+                
+                VStack {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Text("COUNT")
+                            .font(.system(size: 40, weight: .heavy))
+                            .fontWidth(.expanded)
+                            .foregroundStyle(.white)
+                            .opacity(0.5)
+                        
+                        Text("\(pullUpCounter.pullUpCountInt)")
+                            .font(.system(size: 128, weight: .heavy))
+                            .fontWidth(.expanded)
+                            .foregroundStyle(.white)
+                            .frame(height: 128)
+                    }
+                    
+                    goalCircles()
+                    
+                    Spacer()
+                    
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("GOAL")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundStyle(.subText)
+                            
+                            Divider()
+                            
+                            HStack {
+                                Text("\(userGoal)")
+                                    .font(.system(size: 48, weight: .black))
+                                    .fontWidth(.expanded)
+                                
+                                Text("PULL\nUPs")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .fontWidth(.expanded)
+                            }
+                        }
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("TIME")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundStyle(.subText)
+                            
+                            Divider()
+                            
+                            Text(String(format: "%02d", minutes)
+                                 + ":"
+                                 + String(format: "%02d", seconds))
+                            .font(.system(size: 48, weight: .black))
                         }
                     }
-                    VStack(alignment: .leading, spacing: 4){
-                        Text("TIME")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.subText)
-
-                        Divider()
-
-                        Text("00:00")
-                            .font(.system(size: 48, weight: .black))
-                    }
+                    .padding()
+                    
+                    // TODO: ResultView 연결
+                    Button(action: {
+                        timer?.invalidate()
+                        pullUpCounter.stopUpdates()
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.black)
+                                .frame(height: 66)
+                            
+                            Text("STOP")
+                                .font(.system(size: 36, weight: .black))
+                                .fontWidth(.expanded)
+                        }
+                    })
                 }
                 .padding()
-
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.black)
-                            .frame(height: 66)
-
-                        Text("STOP")
-                            .font(.system(size: 36, weight: .black))
-                            .fontWidth(.expanded)
-                    }
-                })
             }
-            .padding()
+            .onChange(of: hasAppeared) { _, appeared in
+                if appeared {
+                    timerStart()
+                    pullUpCounter.startUpdates()
+                }
+            }
+            .onAppear {
+                hasAppeared = true
+            }
+        }
+        .navigationBarHidden(true)
+    }
+    
+    func timerStart() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            progressTime += 1
+        })
+    }
+    
+    func goalCircles() -> some View {
+        VStack {
+            HStack {
+                ForEach(1...10, id: \.self) { num in
+                    if num <= userGoal {
+                        if num <= pullUpCounter.pullUpCountInt {
+                            Circle()
+                                .foregroundColor(.mainBG)
+                                .frame(width: 15, height: 15)
+                        } else {
+                            Circle()
+                                .foregroundColor(.mainBG)
+                                .frame(width: 5, height: 5)
+                                .padding(5)
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 20)
+            
+            HStack {
+                ForEach(11...20, id: \.self) { num in
+                    if num <= userGoal {
+                        if num <= pullUpCounter.pullUpCountInt {
+                            Circle()
+                                .foregroundColor(.mainBG)
+                                .frame(width: 15, height: 15)
+                        } else {
+                            Circle()
+                                .foregroundColor(.mainBG)
+                                .frame(width: 5, height: 5)
+                                .padding(5)
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct PullUpperApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .ignoresSafeArea()
         }
     }
