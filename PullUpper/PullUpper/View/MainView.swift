@@ -23,14 +23,16 @@ struct MainView: View {
                     .fontWidth(.expanded)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
-                
+                    .padding(.top, 59)
+
                 Spacer()
                 
                 NavigationLink(value: "ActivityView") {
                     Image(systemName: "line.3.horizontal.circle.fill")
                         .font(.system(size: 32))
                 }
-                
+                .padding(.top, 59)
+
             }
             .padding()
             
