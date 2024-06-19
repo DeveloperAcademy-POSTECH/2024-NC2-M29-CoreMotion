@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioToolbox
 
 struct PullUpCountView: View {
     @StateObject private var pullUpCounter = PullUpCounter()
@@ -19,7 +20,7 @@ struct PullUpCountView: View {
 
     @Environment(\.modelContext) private var modelContext
 
-    let userGoal = UserDefaults.standard.integer(forKey: "userGoal")
+    var userGoal = UserDefaults.standard.integer(forKey: "userGoal")
 
     var minutes: Int {
         (progressTime % 3600) / 60
@@ -149,6 +150,11 @@ struct PullUpCountView: View {
                 timerStart()
             }
         }
+        .onChange(of: pullUpCounter.pullUpCountInt) { _, newValue in
+            if newValue == userGoal {
+                playSystemSound()
+            }
+        }
         .onAppear {
             hasAppeared = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -164,8 +170,8 @@ struct PullUpCountView: View {
             progressTime += 1
         })
     }
-    
-// 목표 달성 확인용 원
+
+    // 목표 달성 확인용 원
     func goalCircles() -> some View {
         VStack {
             HStack(spacing: 17) {
@@ -203,5 +209,9 @@ struct PullUpCountView: View {
                 }
             }
         }
+    }
+
+    func playSystemSound() {
+        AudioServicesPlaySystemSound(SystemSoundID(1005))
     }
 }
