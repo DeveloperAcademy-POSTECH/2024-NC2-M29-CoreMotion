@@ -19,7 +19,7 @@ struct MainView: View {
         VStack(spacing: 0) {
             HStack(alignment: .center){
                 Text("PullUpper")
-                    .font(.system(size: 36, weight: .heavy))
+                    .font(.system(size: 40, weight: .heavy))
                     .fontWidth(.expanded)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
@@ -30,6 +30,7 @@ struct MainView: View {
                     Image(systemName: "line.3.horizontal.circle.fill")
                         .font(.system(size: 32))
                 }
+                
             }
             .padding()
             
