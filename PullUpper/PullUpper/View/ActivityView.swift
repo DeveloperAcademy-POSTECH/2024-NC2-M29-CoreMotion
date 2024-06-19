@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ActivityView: View {
-    @State private var mockRecords = generateMockPullUpRecords(count: 10)
     @State private var isShowDeleteAlert = false
     @State private var recordToDelete: PullUpRecord?
     @State private var dragOffsets: [UUID: CGFloat] = [:]
 
     @Binding var path: [String]
+
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \PullUpRecord.pullUpDate, order: .reverse) var resultRecords: [PullUpRecord]
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -31,8 +34,8 @@ struct ActivityView: View {
                         .font(.system(size: 15))
                         .fontWeight(.bold)
                         .foregroundColor(.subText)
-
-                    Text(1000.formatterStyle(.decimal)!)
+                    
+                    Text(totalPullUps().formatterStyle(.decimal) ?? "\(totalPullUps())")
                         .font(.system(size: 40, weight: .heavy))
                         .fontWidth(.expanded)
                         .foregroundColor(.mainText)
@@ -50,7 +53,7 @@ struct ActivityView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.subText)
 
-                    Text(100.formatterStyle(.decimal)!)
+                    Text(monthlyPullUps().formatterStyle(.decimal) ?? "\(monthlyPullUps())")
                         .font(.system(size: 40, weight: .heavy))
                         .fontWidth(.expanded)
                         .foregroundColor(.mainText)
@@ -66,7 +69,7 @@ struct ActivityView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    ForEach(mockRecords, id: \.pullUpID) { record in
+                    ForEach(resultRecords, id: \.pullUpID) { record in
                         ZStack {
                             HStack {
                                 Spacer()
@@ -111,7 +114,7 @@ struct ActivityView: View {
                                 message: Text("Are you sure you want to delete this record?"),
                                 primaryButton: .destructive(Text("Delete")) {
                                     if let record = recordToDelete {
-                                        delete(record: record)
+                                        modelContext.delete(record)
                                     }
                                 },
                                 secondaryButton: .cancel()
@@ -188,11 +191,17 @@ struct ActivityView: View {
         .background(Color.white)
     }
 
-    private func delete(record: PullUpRecord) {
-        if let index = mockRecords.firstIndex(where: { $0.pullUpID == record.pullUpID }) {
-            mockRecords.remove(at: index)
-            dragOffsets[record.pullUpID] = nil
+    private func monthlyPullUps() -> Int {
+        let calendar = Calendar.current
+        let now = Date()
+        let monthRecords = resultRecords.filter { record in
+            calendar.isDate(record.pullUpDate, equalTo: now, toGranularity: .month)
         }
+        return monthRecords.reduce(0) { $0 + $1.pullUpCount }
+    }
+
+    private func totalPullUps() -> Int {
+        return resultRecords.reduce(0) { $0 + $1.pullUpCount }
     }
 }
 

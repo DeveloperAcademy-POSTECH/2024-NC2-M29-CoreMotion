@@ -6,13 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PullUpperApp: App {
+    var pullUpModelContainer: ModelContainer = {
+        let schema = Schema([PullUpRecord.self])
+            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            do {
+                return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            } catch {
+                fatalError("\(error)")
+            }
+        } ()
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .ignoresSafeArea()
         }
+        .modelContainer(pullUpModelContainer)
     }
 }

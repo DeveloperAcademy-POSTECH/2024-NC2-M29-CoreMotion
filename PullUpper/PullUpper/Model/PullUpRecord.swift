@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@Model
 class PullUpRecord {
     var pullUpID = UUID()
     var pullUpDate: Date
