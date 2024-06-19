@@ -9,11 +9,11 @@ import UIKit
 import CoreMotion
 
 class PullUpCounter: ObservableObject {
-    private var headphoneMotionManager = CMHeadphoneMotionManager()
-    private var timer: Timer?
+    var headphoneMotionManager = CMHeadphoneMotionManager()
 
     @Published var accelData = CMAcceleration()
     @Published var pullUpCount = 0.5
+    @Published var isHeadPhoneDetected: Bool = false
 
     var pullUpCountInt: Int {
         return Int(pullUpCount)
@@ -25,31 +25,32 @@ class PullUpCounter: ObservableObject {
     private var minIntegralZ: Double = 0.0
     private var maxIntegralZ: Double = 0.0
     private var pullUpInProgress = false
-    private let threshold: Double = 0.06
+    private let threshold: Double = 0.04
 
     func startUpdates() {
         if headphoneMotionManager.isDeviceMotionAvailable {
-            print("Yes")
             headphoneMotionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
                 guard let self = self, let motion = motion, error == nil else { return }
 
                 self.accelData = motion.userAcceleration
                 self.processAccelData(motion.userAcceleration)
+                if headphoneMotionManager.isDeviceMotionActive {
+                    isHeadPhoneDetected = true
+                }
             }
         } else {
             stopUpdates()
+            print("not available")
         }
     }
 
     func stopUpdates() {
         headphoneMotionManager.stopDeviceMotionUpdates()
-        timer?.invalidate()
-        timer = nil
     }
 
     private func processAccelData(_ acceleration: CMAcceleration) {
         let currentAccelZ = acceleration.z
-        let dt = 0.02
+        let dt = 0.04
 
         integralZ += ((currentAccelZ + lastAccelZ) * 0.5 * dt)
         lastAccelZ = currentAccelZ

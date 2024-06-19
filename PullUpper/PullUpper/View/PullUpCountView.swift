@@ -13,6 +13,7 @@ struct PullUpCountView: View {
     @State private var progressTime = 0
     @State private var timer: Timer?
     @State private var hasAppeared = false
+    @State private var showAlert = false
 
     @Binding var path: [String]
 
@@ -30,7 +31,6 @@ struct PullUpCountView: View {
 
     var body: some View {
         ZStack {
-            //배경 스택입니다.
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                 Color.accentColor
 
@@ -119,14 +119,41 @@ struct PullUpCountView: View {
             }
             .padding()
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Headphone Connection Needed"),
+                message: Text("To count the pull-up, you need headphones with built-in acceleration sensors (AirPods Pro, AirPods Max)."),
+                primaryButton: .default(
+                    Text("Try Again"),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                    }
+                ),
+                secondaryButton: .destructive(
+                    Text("Settings")
+                        .foregroundStyle(.red),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                )
+            )
+        }
         .onChange(of: hasAppeared) { _, appeared in
-            if appeared {
+            pullUpCounter.startUpdates()
+            if appeared && !showAlert {
                 timerStart()
-                pullUpCounter.startUpdates()
             }
         }
         .onAppear {
             hasAppeared = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showAlert = !pullUpCounter.isHeadPhoneDetected
+            }
         }
         .navigationBarBackButtonHidden(true)
     }

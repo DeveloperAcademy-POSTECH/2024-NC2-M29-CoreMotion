@@ -23,7 +23,6 @@ struct MainView: View {
                     .fontWidth(.expanded)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
-                    .padding(.top, 59)
 
                 Spacer()
                 
@@ -31,11 +30,11 @@ struct MainView: View {
                     Image(systemName: "line.3.horizontal.circle.fill")
                         .font(.system(size: 32))
                 }
-                .padding(.top, 59)
 
             }
             .padding()
-            
+            .padding(.top, 59)
+
             Spacer()
             
             Text("GOAL")
@@ -44,7 +43,6 @@ struct MainView: View {
                 .foregroundColor(.subText)
             
             Button(action: {
-                // TODO: 헤드폰 연결 탐지, PullUpCountView로 넘어가기
                 isPickerPresented = true
             }) {
                 Text("\(userGoal)")
@@ -85,7 +83,6 @@ struct MainView: View {
                     }
                 }
             }
-            
             Spacer()
         }
         .popup(isPresented: $isPickerPresented) {
