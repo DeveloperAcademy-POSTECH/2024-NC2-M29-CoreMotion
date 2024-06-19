@@ -13,6 +13,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navPath) {
             MainView(path: $navPath)
+                .ignoresSafeArea()
         }
     }
 }

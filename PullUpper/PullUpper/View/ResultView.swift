@@ -30,7 +30,7 @@ struct ResultView: View {
             if let latestRecord = resultRecords.first {
                 VStack(alignment: .leading, spacing: 40) {
                     Text("Result")
-                        .font(.system(size: 48, weight: .heavy))
+                        .font(.system(size: 40, weight: .heavy))
                         .fontWidth(.expanded)
 
                     VStack(alignment: .leading, spacing: 12) {

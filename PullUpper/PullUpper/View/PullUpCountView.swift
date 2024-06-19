@@ -30,6 +30,7 @@ struct PullUpCountView: View {
 
     var body: some View {
         ZStack {
+            //배경 스택입니다.
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                 Color.accentColor
 
@@ -41,7 +42,6 @@ struct PullUpCountView: View {
             .ignoresSafeArea()
 
             VStack {
-                Spacer()
                 VStack(spacing: 0) {
                     Text("COUNT")
                         .font(.system(size: 40, weight: .heavy))
@@ -55,6 +55,7 @@ struct PullUpCountView: View {
                         .foregroundStyle(.white)
                         .frame(height: 128)
                 }
+                .padding(.top, 185)
 
                 goalCircles()
 
@@ -136,10 +137,11 @@ struct PullUpCountView: View {
             progressTime += 1
         })
     }
-
+    
+// 목표 달성 확인용 원
     func goalCircles() -> some View {
         VStack {
-            HStack {
+            HStack(spacing: 17) {
                 ForEach(1...10, id: \.self) { num in
                     if num <= userGoal {
                         if num <= pullUpCounter.pullUpCountInt {
@@ -157,7 +159,7 @@ struct PullUpCountView: View {
             }
             .padding(.vertical, 20)
 
-            HStack {
+            HStack(spacing: 17) {
                 ForEach(11...20, id: \.self) { num in
                     if num <= userGoal {
                         if num <= pullUpCounter.pullUpCountInt {
