@@ -174,44 +174,35 @@ struct PullUpCountView: View {
     // 목표 달성 확인용 원
     func goalCircles() -> some View {
         VStack {
-            HStack(spacing: 17) {
-                ForEach(1...10, id: \.self) { num in
-                    if num <= userGoal {
-                        if num <= pullUpCounter.pullUpCountInt {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 15, height: 15)
-                        } else {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 5, height: 5)
-                                .padding(5)
+                    HStack(spacing: 17) {
+                        ForEach(1...10, id: \.self) { num in
+                            if num <= userGoal {
+                                Circle()
+                                    .foregroundColor(.mainBG)
+                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
+                            }
                         }
                     }
-                }
-            }
-            .padding(.vertical, 20)
+                    .padding(.vertical, 20)
 
-            HStack(spacing: 17) {
-                ForEach(11...20, id: \.self) { num in
-                    if num <= userGoal {
-                        if num <= pullUpCounter.pullUpCountInt {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 15, height: 15)
-                        } else {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 5, height: 5)
-                                .padding(5)
+                    HStack(spacing: 17) {
+                        ForEach(11...20, id: \.self) { num in
+                            if num <= userGoal {
+                                Circle()
+                                    .foregroundColor(.mainBG)
+                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
+                            }
                         }
                     }
                 }
-            }
-        }
+
     }
 
     func playSystemSound() {
-        AudioServicesPlaySystemSound(SystemSoundID(1005))
+        AudioServicesPlaySystemSound(SystemSoundID(1109))
     }
 }
