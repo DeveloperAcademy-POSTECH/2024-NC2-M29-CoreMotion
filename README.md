@@ -23,6 +23,7 @@
     - 보수계 및 피트니스
     - 운동 장애 관리
     - 침수 센서
+- [공식문서](https://developer.apple.com/documentation/coremotion)
 
 ## 🎯 What we focus on?
 - [Tanya](https://github.com/seoyounghan) - Core Motion을 통해 센서 데이터를 받아서 앱을 만들어보기
