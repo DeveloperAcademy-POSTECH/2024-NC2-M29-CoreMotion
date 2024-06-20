@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioToolbox
 
 struct PullUpCountView: View {
     @StateObject private var pullUpCounter = PullUpCounter()
@@ -13,12 +14,13 @@ struct PullUpCountView: View {
     @State private var progressTime = 0
     @State private var timer: Timer?
     @State private var hasAppeared = false
+    @State private var showAlert = false
 
     @Binding var path: [String]
 
     @Environment(\.modelContext) private var modelContext
 
-    let userGoal = UserDefaults.standard.integer(forKey: "userGoal")
+    var userGoal = UserDefaults.standard.integer(forKey: "userGoal")
 
     var minutes: Int {
         (progressTime % 3600) / 60
@@ -30,7 +32,6 @@ struct PullUpCountView: View {
 
     var body: some View {
         ZStack {
-            //배경 스택입니다.
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                 Color.accentColor
 
@@ -119,14 +120,46 @@ struct PullUpCountView: View {
             }
             .padding()
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Headphone Connection Needed"),
+                message: Text("To count the pull-up, you need headphones with built-in acceleration sensors (AirPods Pro, AirPods Max)."),
+                primaryButton: .default(
+                    Text("Try Again"),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                    }
+                ),
+                secondaryButton: .destructive(
+                    Text("Settings")
+                        .foregroundStyle(.red),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                )
+            )
+        }
         .onChange(of: hasAppeared) { _, appeared in
-            if appeared {
+            pullUpCounter.startUpdates()
+            if appeared && !showAlert {
                 timerStart()
-                pullUpCounter.startUpdates()
+            }
+        }
+        .onChange(of: pullUpCounter.pullUpCountInt) { _, newValue in
+            if newValue == userGoal {
+                playSystemSound()
             }
         }
         .onAppear {
             hasAppeared = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showAlert = !pullUpCounter.isHeadPhoneDetected
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -137,44 +170,39 @@ struct PullUpCountView: View {
             progressTime += 1
         })
     }
-    
-// 목표 달성 확인용 원
+
+    // 목표 달성 확인용 원
     func goalCircles() -> some View {
         VStack {
-            HStack(spacing: 17) {
-                ForEach(1...10, id: \.self) { num in
-                    if num <= userGoal {
-                        if num <= pullUpCounter.pullUpCountInt {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 15, height: 15)
-                        } else {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 5, height: 5)
-                                .padding(5)
+                    HStack(spacing: 17) {
+                        ForEach(1...10, id: \.self) { num in
+                            if num <= userGoal {
+                                Circle()
+                                    .foregroundColor(.mainBG)
+                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
+                            }
                         }
                     }
-                }
-            }
-            .padding(.vertical, 20)
+                    .padding(.vertical, 20)
 
-            HStack(spacing: 17) {
-                ForEach(11...20, id: \.self) { num in
-                    if num <= userGoal {
-                        if num <= pullUpCounter.pullUpCountInt {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 15, height: 15)
-                        } else {
-                            Circle()
-                                .foregroundColor(.mainBG)
-                                .frame(width: 5, height: 5)
-                                .padding(5)
+                    HStack(spacing: 17) {
+                        ForEach(11...20, id: \.self) { num in
+                            if num <= userGoal {
+                                Circle()
+                                    .foregroundColor(.mainBG)
+                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
+                            }
                         }
                     }
                 }
-            }
-        }
+
+    }
+
+    func playSystemSound() {
+        AudioServicesPlaySystemSound(SystemSoundID(1109))
     }
 }
