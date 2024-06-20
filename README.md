@@ -34,7 +34,14 @@
 
 
 ## 🖼️ Prototype
-(프로토타입과 설명 추가)
+
+|뷰|설명|
+|------|---|
+|![MainView](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-M29-CoreMotion/assets/63441374/017033e4-e699-4b2b-98f6-90105e54fc21)|**MainView**<br><br>앱 시작 화면<br>start버튼을 통해 턱걸이 시작<br>우측 상단 버튼을 통해 기록 보기<br>목표 숫자 설정|
+|![PullUpCountView](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-M29-CoreMotion/assets/63441374/a587dd04-47e4-4c14-8909-704d2bfa0dca)|**PullUpCountView**<br><br>Count를 통해 풀업의 갯수를 보여줌<br>중앙 원들을 통해 목표에 얼마나 도달했는지 보여줌<br>stop버튼을 통해 결과 화면으로 이동|
+|![ResultView](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-M29-CoreMotion/assets/63441374/1ab28e43-9af3-45bf-ab60-149bef04133e)|**ResultView**<br><br>진행한 풀업의 갯수, 목표, 진행시간 보여주기|
+|![ActivityView](https://github.com/DeveloperAcademy-POSTECH/2024-NC2-M29-CoreMotion/assets/63441374/0401dab1-da8a-45d6-9ba4-eb72cdb6e07d)|**ActivityView**<br><br>풀업의 기록들을 보여줌<br> 밀어서 삭제|
+
 
 ## 🛠️ About Code
 **class PullUpCounter: ObservableObject** 에 대한 설명!!
