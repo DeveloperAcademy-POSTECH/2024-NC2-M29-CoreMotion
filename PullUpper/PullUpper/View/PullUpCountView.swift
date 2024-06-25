@@ -120,30 +120,6 @@ struct PullUpCountView: View {
             }
             .padding()
         }
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Headphone Connection Needed"),
-                message: Text("To count the pull-up, you need headphones with built-in acceleration sensors (AirPods Pro, AirPods Max)."),
-                primaryButton: .default(
-                    Text("Try Again"),
-                    action: {
-                        pullUpCounter.stopUpdates()
-                        path.removeAll()
-                    }
-                ),
-                secondaryButton: .destructive(
-                    Text("Settings")
-                        .foregroundStyle(.red),
-                    action: {
-                        pullUpCounter.stopUpdates()
-                        path.removeAll()
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
-                    }
-                )
-            )
-        }
         .onChange(of: hasAppeared) { _, appeared in
             pullUpCounter.startUpdates()
             if appeared && !showAlert {
@@ -157,11 +133,35 @@ struct PullUpCountView: View {
         }
         .onAppear {
             hasAppeared = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 showAlert = !pullUpCounter.isHeadPhoneDetected
             }
         }
         .navigationBarBackButtonHidden(true)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Headphone Connection Needed"),
+                message: Text("To count the pull-up, you need headphones with built-in acceleration sensors (AirPods Pro, AirPods Max)."),
+                primaryButton: .default(
+                    Text("Try Again"),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                    }
+                ),
+                secondaryButton: .default(
+                    Text("Settings")
+                        .foregroundStyle(.red),
+                    action: {
+                        pullUpCounter.stopUpdates()
+                        path.removeAll()
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                )
+            )
+        }
     }
 
     func timerStart() {
@@ -174,32 +174,32 @@ struct PullUpCountView: View {
     // 목표 달성 확인용 원
     func goalCircles() -> some View {
         VStack {
-                    HStack(spacing: 17) {
-                        ForEach(1...10, id: \.self) { num in
-                            if num <= userGoal {
-                                Circle()
-                                    .foregroundColor(.mainBG)
-                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
-                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
-                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
-                            }
-                        }
-                    }
-                    .padding(.vertical, 20)
-
-                    HStack(spacing: 17) {
-                        ForEach(11...20, id: \.self) { num in
-                            if num <= userGoal {
-                                Circle()
-                                    .foregroundColor(.mainBG)
-                                    .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
-                                    .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
-                                    .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
-                            }
-                        }
+            HStack(spacing: 17) {
+                ForEach(1...10, id: \.self) { num in
+                    if num <= userGoal {
+                        Circle()
+                            .foregroundColor(.mainBG)
+                            .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                            .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                            .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
                     }
                 }
+            }
+            .padding(.vertical, 20)
 
+            HStack(spacing: 17) {
+                ForEach(11...20, id: \.self) { num in
+                    if num <= userGoal {
+                        Circle()
+                            .foregroundColor(.mainBG)
+                            .frame(width: num <= pullUpCounter.pullUpCountInt ? 15 : 5, height: num <= pullUpCounter.pullUpCountInt ? 15 : 5)
+                            .padding(num <= pullUpCounter.pullUpCountInt ? 0 : 5)
+                            .animation(.easeInOut(duration: 0.3), value: num <= pullUpCounter.pullUpCountInt)
+                    }
+                }
+            }
+        }
+        
     }
 
     func playSystemSound() {

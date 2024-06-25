@@ -19,6 +19,17 @@ struct PullUpperApp: App {
                 fatalError("\(error)")
             }
         } ()
+
+    init() {
+
+        UIView.appearance(for: UITraitCollection(userInterfaceStyle: .light),
+          whenContainedInInstancesOf: [UIAlertController.self])
+            .tintColor = UIColor(Color("AccentColor"))
+
+        UIView.appearance(for: UITraitCollection(userInterfaceStyle: .dark),
+          whenContainedInInstancesOf: [UIAlertController.self])
+            .tintColor = UIColor(Color("AccentColor"))
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
