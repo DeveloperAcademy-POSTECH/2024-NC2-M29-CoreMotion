@@ -25,7 +25,7 @@ class PullUpCounter: ObservableObject {
     private var minIntegralZ: Double = 0.0
     private var maxIntegralZ: Double = 0.0
     private var pullUpInProgress = false
-    private let threshold: Double = 0.04
+    private let threshold: Double = 0.07
 
     func startUpdates() {
         if headphoneMotionManager.isDeviceMotionAvailable {

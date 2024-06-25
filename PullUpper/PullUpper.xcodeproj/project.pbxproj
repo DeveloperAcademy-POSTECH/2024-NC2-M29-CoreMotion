@@ -66,13 +66,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		BD3D7E8F2C207C06007D8BAA /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		BDEC97D42C1ECACC00D37F28 = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +90,6 @@
 				BD3D7E832C1FD6D1007D8BAA /* View */,
 				BD3D7E822C1FD6CA007D8BAA /* Model */,
 				BDEC97E42C1ECACC00D37F28 /* Assets.xcassets */,
-				BD3D7E8F2C207C06007D8BAA /* Fonts */,
 				BDEC97E62C1ECACC00D37F28 /* Preview Content */,
 			);
 			path = PullUpper;
@@ -322,7 +314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PullUpper/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AZ7B294WMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PullUpper/Info.plist;
@@ -354,7 +346,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PullUpper/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AZ7B294WMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PullUpper/Info.plist;
